@@ -1,10 +1,10 @@
-# 每日自动修改 Zepp 步数（cron 0 4 UTC = 北京时间 12:00）
+# 每日自动修改 Zepp 步数（cron 0 22 UTC = 次日北京时间 06:00）
 name: 自动任务-修改Zepp当天运动数据
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 4 * * *'
+    - cron: '0 22 * * *'
 
 jobs:
   run-python-script:
@@ -20,6 +20,7 @@ jobs:
         run: pip install requests==2.26.0
       - name: '运行主程序'
         env:
+          TZ: Asia/Shanghai
           ACCOUNT: ${{ secrets.ACCOUNT }}
           PASSWORD: ${{ secrets.PASSWORD }}
         run: python ./main.py
